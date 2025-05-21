@@ -1,0 +1,8 @@
+/target
+/playground
+/data
+.bacon-locations
+bacon.toml
+.ipynb_checkpoints
+.virtual_documents
+*.svg

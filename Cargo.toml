@@ -1,0 +1,42 @@
+[package]
+name = "fscryptrs"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter"] }
+crypto-common = { version = "0.1.6", features = ["std"] }
+aead = "0.5.2"
+aes-gcm = { version = "0.10.3", features = ["std"] }
+anyhow = "1.0.94"
+chacha20poly1305 = "0.10.1"
+clap = { version = "4.5.18", features = ["cargo", "derive"] }
+digest = { version = "0.10.7", features = ["mac"] }
+fuser = { version = "0.15.0", features = ["abi-7-31"] }
+libc = "0.2.159"
+nix = { version = "0.29.0", features = ["dir"] }
+serde = { version = "1.0.210", features = ["derive"] }
+sha3 = "0.10.8"
+thiserror = "2.0.7"
+test-log = { version = "0.2.17", features = ["trace"] }
+blake2 = "0.10.6"
+rpassword = "7.3.1"
+argon2 = "0.5.3"
+toml = "0.8.20"
+base64 = "0.22.1"
+aes-siv = "0.7.0"
+caps = "0.5.5"
+filetime = "0.2.25"
+serde_arrays = "0.2.0"
+
+[dev-dependencies]
+serial_test = "3.2.0"
+rand = "0.9.0"
+
+
+[profile.test]
+opt-level = 3
+
+[profile.release]
+debug = "full"

@@ -1,0 +1,5 @@
+/target
+.bacon-locations
+.ipynb_checkpoints
+.virtual_documents
+*.svg

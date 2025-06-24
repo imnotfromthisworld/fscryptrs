@@ -7,7 +7,6 @@ use std::time::{Duration, SystemTime};
 use fuser::{FileAttr, FileType};
 
 pub struct Metadata(pub std::fs::Metadata);
-//struct FileAttr(fuser::FileAttr);
 
 impl Metadata {
     pub fn from(value: std::fs::Metadata) -> Self {

@@ -588,7 +588,7 @@ where
             } as usize;
 
             debug!("writing {}..{}", idx, to);
-            match (&mut self.cache.block[idx..to]).write(&buf[..(to - idx)]) {
+            match (&mut self.cache.block[idx..to]).write(buf) {
                 Ok(0) => return Ok(0),
                 Ok(n) => {
                     self.cache.mark_dirty();

@@ -1059,12 +1059,12 @@ where
         let parent_ino = get_inode!(self, parent, reply);
         let iv = get_dir_iv!(parent_ino, reply);
         let name = encrypt_filename!(self, name, iv, reply);
-        let path = format!("{}/{}", parent_ino.path, name);
+        let mut path = format!("{}/{}", parent_ino.path, name);
 
         let new_parent_ino = get_inode!(self, newparent, reply);
         let new_iv = get_dir_iv!(new_parent_ino, reply);
         let new_name = encrypt_filename!(self, newname, new_iv, reply);
-        let new_path = format!("{}/{}", new_parent_ino.path, new_name);
+        let mut new_path = format!("{}/{}", new_parent_ino.path, new_name);
 
         // if NOREPLACE is set, check if new_path doesn't exist
         if flags == 1 && std::fs::metadata(&new_path).is_ok() {
@@ -1086,9 +1086,6 @@ where
             },
         );
 
-        let mut path = std::path::PathBuf::from(path);
-        let mut new_path = std::path::PathBuf::from(new_path);
-
         if let Err(e) = std::fs::rename(&path, &new_path) {
             error!("failed renaming file; {}", e);
             reply.error(libc::EIO);
@@ -1096,8 +1093,8 @@ where
         }
 
         if self.crypto.digest_check {
-            path.push(".dg");
-            new_path.push(".dg");
+            path.push_str(".dg");
+            new_path.push_str(".dg");
             if let Err(e) = std::fs::rename(&path, &new_path) {
                 error!("failed renaming digest file; {}", e);
                 reply.error(libc::EIO);
